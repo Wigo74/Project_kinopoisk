@@ -1,5 +1,4 @@
 from typing import Generic, List, Optional, TypeVar
-
 from flask import current_app
 from flask_sqlalchemy import BaseQuery
 from sqlalchemy.orm import scoped_session
@@ -30,3 +29,5 @@ class BaseDAO(Generic[T]):
             except NotFound:
                 return []
         return stmt.all()
+
+
