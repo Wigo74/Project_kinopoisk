@@ -14,7 +14,7 @@ class UserView(Resource):
         """
         Get user.
         """
-        token = request.headers["Authorization"].split("Bearer")[-1]
+        token = request.headers["Authorization"].split("Bearer")[-1].strip()
         return user_service.get_user_by_token(token)
 
     @api.marshal_with(user, as_list=True, code=200, description='OK')
@@ -22,17 +22,18 @@ class UserView(Resource):
         """
         Updat users.
         """
-        token = request.headers["Authorization"].split("Bearer")[-1]
+        token = request.headers["Authorization"].split("Bearer")[-1].strip()
         data = request.json
         return user_service.update_user(data=data, token=token)
 
 
 @api.route('/password')
 class PasswordView(Resource):
+    @api.marshal_with(user, as_list=True, code=200, description='OK')
     def put(self):
         """
         Update password
         """
         data = request.json
-        token = request.headers["Authorization"].split("Bearer")[-1]
+        token = request.headers["Authorization"].split("Bearer")[-1].strip()
         return user_service.update_password(data=data, token=token)

@@ -45,12 +45,12 @@ class UsersService:
 
     def update_password(self, data, token):
         user = get_data_by_token(token)
-        if data:
+        if user:
             self.dao.update_user(
                 data={
                     "password": generate_password_hash(data.get("password_2"))
                 },
                 email=user.get("email")
             )
-            return self.get_user_by_email(data.get("email"))
+            return self.get_user_by_email(user.get("email"))
 
